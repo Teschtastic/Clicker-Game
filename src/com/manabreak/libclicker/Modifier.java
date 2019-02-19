@@ -36,14 +36,22 @@ import java.io.Serializable;
  */
 public abstract class Modifier extends Item implements Serializable
 {
-    private boolean mEnabled = false;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6407022784018177819L;
+	private boolean mEnabled = false;
     
     /**
      * Modifier for worlds
      */
     static class WorldModifier extends Modifier
     {
-        private double mSpeedMultiplier;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = 4932682884438575706L;
+		private double mSpeedMultiplier;
         private boolean mDisableActivators;
         
         private double mSpeedMultiplierBefore;
@@ -92,7 +100,11 @@ public abstract class Modifier extends Item implements Serializable
      */
     static class GeneratorModifier extends Modifier
     {
-        private final Generator mGenerator;
+        /**
+		 * 
+		 */
+		private static final long serialVersionUID = -6683532928961110952L;
+		private final Generator mGenerator;
         private double mMultiplier = 1.0;
         
         GeneratorModifier(Generator generator)

@@ -35,6 +35,11 @@ import java.util.List;
 public class World implements Serializable
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4819321337398632890L;
+
+	/**
      * Active generators
      */
     private ArrayList<Generator> mGenerators = new ArrayList<>();

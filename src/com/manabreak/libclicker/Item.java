@@ -36,6 +36,11 @@ import java.util.ArrayList;
 public abstract class Item implements Serializable
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5001387414093210370L;
+
+	/**
      * The base price of the item (i.e. the price of the first level of this item)
      */
     protected BigInteger mBasePrice = BigInteger.ONE;

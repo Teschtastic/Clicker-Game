@@ -51,11 +51,17 @@ public class UI {
 	protected void createContents() throws IOException {
 		
 		World world = new World();
-		world.update(1.0/60.0);
 		Currency clicks = new Currency.Builder(world).name("Clicks").build();
 		Integer clickMod = 1;
 		BigInteger click = BigInteger.valueOf(clickMod);
 		Long num;
+		Generator clickerGen = new Generator.Builder(world)
+				.generate(clicks)
+				.baseAmount(10)
+				.multiplier(1.15)
+				.price(100)
+				.priceMultiplier(1.25)
+				.build();
 		
 		
 		shell = new Shell();
@@ -68,12 +74,12 @@ public class UI {
 		    System.out.println("No file found");
 		}
 		
-		 txt = br.readLine();
-		 num = Long.parseLong(txt);
-		 System.out.println(txt);
-		 BigInteger fileClicks = BigInteger.valueOf(num);
-		 clicks.set(fileClicks);
-		
+		txt = br.readLine();
+		num = Long.parseLong(txt);
+		System.out.println(txt);
+		BigInteger fileClicks = BigInteger.valueOf(num);
+		clicks.set(fileClicks);
+		 
 		Label lblScore = new Label(shell, SWT.NONE);
 		lblScore.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 20, SWT.NORMAL));
 		lblScore.setBounds(100, 200, 150, 50);
@@ -108,6 +114,26 @@ public class UI {
 		});
 		btnNewButton_1.setBounds(100, 10, 150, 27);
 		btnNewButton_1.setText("Save and Quit");
-
+		
+		// TODO: Get the auto generator working
+		Button btnNewButton_2 = new Button(shell, SWT.NONE);
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseDown(MouseEvent e) {
+				if (clicks.getAmountAsString().compareTo(clickerGen.getPrice().toString()) >= 0) {
+					clickerGen.upgrade();
+					clicks.sub(clickerGen.getPrice());
+					
+				}
+				Automator clickerAuto = new Automator.Builder(world)
+					      .automate(clickerGen)
+					      .every(3.0) // Tick every three seconds
+					      .build();
+				
+				clickerAuto.enable();
+			}
+		});
+		btnNewButton_2.setBounds(581, 10, 209, 84);
+		btnNewButton_2.setText("Upgrade Clicks");
 	}
 }

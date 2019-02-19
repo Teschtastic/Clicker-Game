@@ -35,6 +35,11 @@ import java.math.BigInteger;
 public class Currency implements Serializable
 {
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8986932895156123004L;
+
+	/**
      * Name of this currency
      */
     private String mName;

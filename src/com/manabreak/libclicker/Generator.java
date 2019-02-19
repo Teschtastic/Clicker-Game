@@ -41,7 +41,12 @@ import java.util.Random;
  */
 public class Generator extends Item implements Serializable
 {
-    public interface Callback
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -947490453484981979L;
+
+	public interface Callback
     {
         void onProcessed();
     }

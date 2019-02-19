@@ -37,7 +37,11 @@ import java.math.BigInteger;
  */
 public class Automator extends Item implements Serializable
 {
-    private Generator mGenerator;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3244038402288495599L;
+	private Generator mGenerator;
     private double mTickRate = 1.0;
     private double mTickTimer = 0.0;
     private double mMultiplier;
