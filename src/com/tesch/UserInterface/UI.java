@@ -4,7 +4,10 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Button;
 
+import com.manabreak.libclicker.*;
+
 import java.io.*;
+import java.math.BigInteger;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
@@ -46,6 +49,15 @@ public class UI {
 	 * @wbp.parser.entryPoint
 	 */
 	protected void createContents() throws IOException {
+		
+		World world = new World();
+		world.update(1.0/60.0);
+		Currency clicks = new Currency.Builder(world).name("Clicks").build();
+		Integer clickMod = 1;
+		BigInteger click = BigInteger.valueOf(clickMod);
+		Long num;
+		
+		
 		shell = new Shell();
 		shell.setSize(800, 600);
 		shell.setText("Sean's Clicker Game");
@@ -57,20 +69,22 @@ public class UI {
 		}
 		
 		 txt = br.readLine();
+		 num = Long.parseLong(txt);
 		 System.out.println(txt);
-		 score = Integer.parseInt(txt);
+		 BigInteger fileClicks = BigInteger.valueOf(num);
+		 clicks.set(fileClicks);
 		
 		Label lblScore = new Label(shell, SWT.NONE);
 		lblScore.setFont(SWTResourceManager.getFont(".AppleSystemUIFont", 20, SWT.NORMAL));
 		lblScore.setBounds(100, 200, 150, 50);
-		lblScore.setText("Score: " + score);
+		lblScore.setText("Score: " + clicks.toString());
 		
 		Button btnNewButton = new Button(shell, SWT.NONE);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {
-				score += 1;
-				lblScore.setText("Score: " + score);
+				clicks.add(click);;
+				lblScore.setText("Score: " + clicks.toString());
 			}
 		});
 		btnNewButton.setBounds(100, 250, 150, 150);
@@ -82,8 +96,8 @@ public class UI {
 			public void mouseDown(MouseEvent e) {
 				try {
 					bw = new BufferedWriter(new FileWriter(fileName));
-					bw.write(score.toString());
-					System.out.println(score);
+					bw.write(clicks.toString());
+					System.out.println(clicks.getValue());
 					bw.close();
 					br.close();
 					System.exit(0);
